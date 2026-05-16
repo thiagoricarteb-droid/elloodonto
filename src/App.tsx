@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { 
   Phone, 
   Instagram, 
@@ -30,20 +30,20 @@ const clinicalTeam = [
     role: "Cirurgiã-Dentista",
     cr: "CRO-RN 6185",
     specialties: ["Estética Dental", "Reabilitação Oral"],
-    image: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/g2jWcZtC/Whats-App-Image-2026-05-14-at-18-40-26-(7).jpg"
   },
   {
     name: "Dr. Lucas Magalhães",
     role: "Cirurgiã-Dentista",
     cr: "CRO-RN 7140",
     specialties: ["Implantes", "Cirurgia Oral"],
-    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/T1KVYQmt/Whats-App-Image-2026-05-14-at-18-40-26-(8).jpg"
   },
   {
     name: "Dra. Lele (Tia Lele)",
     role: "Odontopediatra",
     specialties: ["Odontopediatria", "Cuidado Infantil"],
-    image: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/8PQhRdgx/Whats-App-Image-2026-05-16-at-10-40-29.jpg"
   }
 ];
 
@@ -53,34 +53,34 @@ const multidisciplinaryTeam = [
     role: "Nutricionista",
     cr: "CRN/46858/P",
     specialties: ["Nutrição Comportamental", "Abordagem para Jovens e Adultos"],
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/5NftWpc5/Whats-App-Image-2026-05-16-at-10-55-53.jpg"
   },
   {
     name: "Jessé Figueirêdo",
     role: "Nutricionista",
     cr: "CRN: 20120, 6ª região",
     specialties: ["Nutrição Esportiva", "Hipertrofia", "Emagrecimento"],
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/HLNfBWmK/Whats-App-Image-2026-05-16-at-11-09-58.jpg"
   },
   {
     name: "Verônica Dantas",
     role: "Enfermeira",
     cr: "COREN-RN 472524",
     specialties: ["Enfermagem Dermatológica", "Laserterapia", "Tratamento de Feridas"],
-    image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/JhsFDwXp/Whats-App-Image-2026-05-16-at-11-11-18.jpg"
   },
   {
     name: "Letícia Aciole",
     role: "Fisioterapeuta",
     cr: "CREFITO 428701-F",
     specialties: ["Reabilitação Ortopédica", "Disfunções da Coluna", "Fisioterapia Geriátrica", "Liberação Miofascial"],
-    image: "https://images.unsplash.com/photo-1559839734-2b71f153205a?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/qqpqMxFC/Whats-App-Image-2026-05-16-at-11-09-59-(1).jpg"
   },
   {
     name: "Ana Luísa",
     role: "Enfermeira",
     specialties: ["Estética Facial e Corporal", "Furo Humanizado"],
-    image: "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=800&auto=format&fit=crop"
+    image: "https://i.postimg.cc/G3vgWxrS/Whats-App-Image-2026-05-16-at-11-37-22.jpg"
   }
 ];
 
@@ -96,9 +96,23 @@ const services = [
   { title: "Facetas", icon: <Users className="w-6 h-6" /> }
 ];
 
+const instagramHandle = "elloodontologia"; // Handle placeholder based on clinic name
+
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    service: 'Selecione um serviço'
+  });
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const message = `Olá! Gostaria de solicitar um agendamento.%0A%0A*Nome:* ${formData.name}%0A*WhatsApp:* ${formData.phone}%0A*Serviço:* ${formData.service}`;
+    const whatsappUrl = `https://wa.me/5584999649394?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -300,7 +314,7 @@ export default function App() {
             {clinicalTeam.map((member, i) => (
               <motion.div key={i} variants={fadeIn} className="group">
                 <div className="aspect-[4/5] overflow-hidden mb-8 relative border border-primary/5">
-                  <img src={member.image} className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105" alt={member.name} referrerPolicy="no-referrer" />
+                  <img src={member.image} className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" alt={member.name} referrerPolicy="no-referrer" />
                   <div className="absolute inset-x-0 bottom-0 py-6 px-8 bg-primary/90 backdrop-blur-sm translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                      <p className="text-white text-[10px] uppercase tracking-[0.2em]">{member.specialties.join(' • ')}</p>
                   </div>
@@ -424,35 +438,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 bg-white overflow-hidden relative">
-        <div className="absolute top-1/2 left-0 w-full h-[500px] bg-primary/5 -skew-y-3 -translate-y-1/2"></div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <h2 className="section-title text-center mb-16">O que nossos pacientes dizem</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((_, i) => (
-              <div key={i} className="bg-white p-10 rounded-[2rem] shadow-xl shadow-primary/5 border border-primary/5">
-                <div className="flex gap-1 text-accent mb-6">
-                  {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-current" />)}
-                </div>
-                <p className="text-gray-600 mb-8 italic">"Atendimento impecável! O Dr. Lucas foi super atencioso e a clínica é simplesmente linda. Me senti muito seguro durante todo o tratamento."</p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center font-bold text-primary">MS</div>
-                  <div>
-                    <h5 className="font-bold text-primary">Maria Silva</h5>
-                    <p className="text-xs text-gray-400">Paciente Reabilitação</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Contact Section */}
       <section id="contato" className="py-24 bg-cream">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-primary rounded-[3rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl">
+          <div className="bg-primary rounded-[3rem] overflow-hidden flex flex-col lg:flex-row shadow-2xl mb-16">
             <div className="p-12 lg:p-20 text-white lg:w-1/2">
               <h2 className="text-4xl md:text-5xl font-display font-bold mb-8">Vamos conversar?</h2>
               <div className="space-y-8">
@@ -471,7 +460,7 @@ export default function App() {
                   </div>
                   <div>
                     <h5 className="font-bold text-lg">WhatsApp</h5>
-                    <p className="text-white/60">(84) 99999-9999</p>
+                    <p className="text-white/60">(84) 99964-9394</p>
                   </div>
                 </div>
                 <div className="flex gap-6 items-center">
@@ -486,10 +475,10 @@ export default function App() {
               </div>
               
               <div className="mt-16 flex gap-4">
-                <a href="#" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                <a href={`https://instagram.com/${instagramHandle}`} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
                   <Instagram />
                 </a>
-                <a href="#" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                <a href="https://wa.me/5584999649394" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
                   <Phone />
                 </a>
               </div>
@@ -497,25 +486,59 @@ export default function App() {
 
             <div className="bg-white p-12 lg:p-20 lg:w-1/2">
               <h3 className="text-2xl font-bold text-primary mb-8">Solicitar Agendamento</h3>
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Nome Completo</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none" placeholder="Digite seu nome" />
+                  <input 
+                    type="text" 
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none" 
+                    placeholder="Digite seu nome"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">WhatsApp</label>
-                  <input type="tel" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none" placeholder="(84) 90000-0000" />
+                  <input 
+                    type="tel" 
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none" 
+                    placeholder="(84) 99964-9394"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Qual serviço procura?</label>
-                  <select className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none bg-white">
-                    <option>Selecione um serviço</option>
-                    {services.map((s, i) => <option key={i}>{s.title}</option>)}
-                    <option>Outro Especialista</option>
+                  <select 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-accent outline-none bg-white"
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                  >
+                    <option disabled>Selecione um serviço</option>
+                    {services.map((s, i) => <option key={i} value={s.title}>{s.title}</option>)}
+                    <option value="Outro Especialista">Outro Especialista</option>
                   </select>
                 </div>
-                <button className="btn-primary w-full py-4 text-lg">Enviar Mensagem</button>
+                <button type="submit" className="btn-primary w-full py-4 text-lg">Enviar Mensagem</button>
               </form>
+            </div>
+          </div>
+
+          {/* Map Section */}
+          <div className="w-full h-[500px] rounded-[3rem] overflow-hidden shadow-2xl relative group border-4 border-white">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.7397750106203!2d-36.51694292418386!3d-6.258169161273932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7adb2f01f01c901%3A0xc331ed866164284b!2sR.%20Dona%20Germana%2C%2058%2C%20Currais%20Novos%20-%20RN%2C%2059380-000!5e0!3m2!1spt-BR!2sbr!4v1715870000000!5m2!1spt-BR!2sbr" 
+              className="w-full h-full border-0 grayscale active:grayscale-0 transition-all duration-700" 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <div className="absolute top-6 left-6 pointer-events-none">
+              <div className="bg-primary px-6 py-3 rounded-full text-white text-xs font-bold uppercase tracking-widest shadow-xl border border-white/20">
+                Nossa Localização
+              </div>
             </div>
           </div>
         </div>
@@ -523,7 +546,7 @@ export default function App() {
 
       {/* CTA Floating Button */}
       <a 
-        href="https://wa.me/something" 
+        href="https://wa.me/5584999649394" 
         target="_blank" 
         rel="noopener noreferrer"
         className="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-2xl z-50 hover:bg-green-600 transition-transform hover:scale-110 active:scale-95 group"
@@ -549,19 +572,19 @@ export default function App() {
             <div>
               <h5 className="font-bold mb-6 text-xl">Links</h5>
               <ul className="space-y-4 text-white/60">
-                <li><a href="#" className="hover:text-accent font-medium">Início</a></li>
-                <li><a href="#" className="hover:text-accent font-medium">Serviços</a></li>
-                <li><a href="#" className="hover:text-accent font-medium">Nossa Equipe</a></li>
-                <li><a href="#" className="hover:text-accent font-medium">Sobre a Clínica</a></li>
+                <li><a href="#inicio" className="hover:text-accent font-medium">Início</a></li>
+                <li><a href="#servicos" className="hover:text-accent font-medium">Serviços</a></li>
+                <li><a href="#equipe" className="hover:text-accent font-medium">Nossa Equipe</a></li>
+                <li><a href="#sobre" className="hover:text-accent font-medium">Sobre a Clínica</a></li>
               </ul>
             </div>
             <div>
               <h5 className="font-bold mb-6 text-xl">Redes Sociais</h5>
               <div className="flex gap-4">
-                <a href="#" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                <a href={`https://instagram.com/${instagramHandle}`} target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
                   <Instagram />
                 </a>
-                <a href="#" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                <a href="https://wa.me/5584999649394" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
                   <Phone />
                 </a>
               </div>
