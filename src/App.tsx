@@ -592,9 +592,12 @@ export default function App() {
           </div>
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-white/40 text-sm">
             <p>© 2026 ELLO Odontologia Integrada. Todos os direitos reservados.</p>
-            <div className="flex gap-8">
-              <a href="#" className="hover:text-white">Privacidade</a>
-              <a href="#" className="hover:text-white">Termos</a>
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <div className="flex gap-8">
+                <a href="#" className="hover:text-white">Privacidade</a>
+                <a href="#" className="hover:text-white">Termos</a>
+              </div>
+              <p>Desenvolvido por <a href="https://eudoxmedia.com.br" target="_blank" rel="noopener noreferrer" className="text-white hover:text-accent font-medium">EudoxMedia</a></p>
             </div>
           </div>
         </div>
