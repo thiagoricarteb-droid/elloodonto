@@ -2,5 +2,5 @@
   "name": "ELLO Odontologia Integrada",
   "description": "Clínica odontológica premium em Currais Novos - RN, oferecendo atendimento completo, tecnologia de ponta e cuidado humanizado.",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
